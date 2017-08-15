@@ -1,0 +1,163 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.Diagnostics;
+using System.Threading;
+
+namespace GUI_OVFTOOL
+{
+    public partial class Form7 : Form
+    {
+        public String tex;
+        public Form7()
+        {
+            InitializeComponent();
+        }
+
+        private void btnsrc_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+            txtsrc.Text = openFileDialog1.FileName;
+        }
+
+        private void btnrun_Click(object sender, EventArgs e)
+        {
+            if (txtsrc.Text == "openFileDialog1" || txtsrc.Text == "")
+            {
+                MessageBox.Show("please browse the source file");
+            }
+            else if (txtui.Text == "")
+            {
+                MessageBox.Show("Please enter the User Name");
+            }
+            else if (txtpwd.Text == "")
+            {
+                MessageBox.Show("Please enter the Password");
+            }
+            else if (txtdtn.Text == "")
+            {
+                MessageBox.Show("Please enter the URL");
+            }
+            else if (txtcat.Text == "")
+            {
+                MessageBox.Show("Please enter the Catalog Name");
+            }
+            else if (txtapp.Text == "")
+            {
+                MessageBox.Show("Please enter the Application Name");
+            }
+            else
+            {
+                try
+                {
+                    String surl,vdc="", sorg = "";
+                    int lurl, j, i, k;
+
+                    surl = txtdtn.Text;
+                    lurl = surl.Length;
+                    txtres.Text = lurl.ToString();
+                    if (surl[lurl - 1] == '/')
+                    {
+                        for (i = lurl - 2; i >= 0; i--)
+                        {
+                            if (surl[i] == '/')
+                            {
+                                break;
+                            }
+                            sorg = sorg + surl[i].ToString();
+                        }
+                    }
+                    string input = sorg;
+                    string output = "";
+                    for (k = input.Length - 1; k >= 0; k--)
+                    {
+                        output += input[k];
+                    }
+                    txtorg.Text = output.ToUpper();
+                    for (j = 0; j < output.Length; j++)
+                    {
+                        if (output[j] == '-')
+                        {
+                            break;
+                        }
+                        vdc = vdc + output[j];
+                    }
+                    txtvdc.Text = vdc.ToLower();
+                    txtdtn.Text = funrem();
+                    String s = "--sourceType=\"OVF\" \"" + txtsrc.Text + "\" \"vcloud://" + txtui.Text + ":" + txtpwd.Text + "@" + txtdtn.Text + "?vdc=" + txtvdc.Text + "&org=" + txtorg.Text + "&vappTemplate=" + txtapp.Text + "&catalog=" + txtcat.Text + "\"";
+                    //ovftool --sourceType="OVF" "C:\Users\schandramoul\Downloads\VM_SOFTWARES\test\test.ovf " "vclou
+                    //d://p10v1-vcd.vchs.vmware.com/cloud/org/m211057782-9439/?vdc= m211057782&org= M211057782-9439&vappTemplate=test&catalog=SG_Catalog"
+                    txtsynx.Text = s;
+                }
+                catch (Exception a)
+                {
+                    MessageBox.Show(a.Message);
+                }
+                txtres.Text = "please wait";
+                progressBar1.Value = 20;
+                label9.Text = "20%";
+                if (!backgroundWorker1.IsBusy)
+                {
+                    // This method will start the execution asynchronously in the background
+                    backgroundWorker1.RunWorkerAsync();
+                }     
+            }
+        }
+        public void funcall()
+        {
+            String p, res,er;
+            p = txtsynx.Text;
+            OvfClass ovf = new OvfClass();
+            res = ovf.compute(p);
+            er = res.Substring(res.Length-4,4);
+            if(er=="erro")
+            {
+                res = res.Remove(res.Length - 4, 4);
+                
+                MessageBox.Show(res);
+                //this.Hide();
+                //Application.Exit();                                                        
+            }
+            else
+            {
+                tex = res;
+            }
+        }
+
+        public string funrem()
+        {
+            string test = txtdtn.Text;
+            string result = test.Remove(0, 8);
+            txtdtn.Text = null;
+            return result;
+        }
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int sum = 0;
+            funcall();
+            for (int i = 20; i <= 4; i+=20)
+            {                
+                sum = sum + i;
+                backgroundWorker1.ReportProgress(i);
+            }
+            e.Result = sum;
+        }
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value += e.ProgressPercentage;
+            label9.Text = e.ProgressPercentage.ToString() + "%";
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            txtres.Text = tex;
+            progressBar1.Value = 100;
+            label9.Text = "100%";
+        }       
+    }
+}

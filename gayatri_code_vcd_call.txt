@@ -1,0 +1,202 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.Diagnostics;
+using System.Threading;
+
+namespace GUI_OVFTOOL
+{
+    public partial class Form7 : Form
+    {
+        public String tex;
+        String surl, vcd = "", sorg = "", input = "", output = "";
+        int lurl, j, i, k;
+        public Form7()
+        {
+            InitializeComponent();
+        }
+
+        private void btnsrc_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+            txtsrc.Text = openFileDialog1.FileName;
+        }
+
+        private void btnrun_Click(object sender, EventArgs e)
+        {
+            if (txtsrc.Text == "openFileDialog1" || txtsrc.Text == "")
+            {
+                MessageBox.Show("please browse the source file");
+            }
+            else if (txtui.Text == "")
+            {
+                txtui.Text = "root";
+                MessageBox.Show("Please enter the User Name");
+            }
+            else if (txtpwd.Text == "")
+            {
+                MessageBox.Show("Please enter the Password");
+            }
+            else if (txtdtn.Text == "")
+            {
+                MessageBox.Show("Please enter the URL");
+            }
+            else if (txtcat.Text == "")
+            {
+                MessageBox.Show("Please enter the Catalog Name");
+            }
+            else if (txtapp.Text == "")
+            {
+                MessageBox.Show("Please enter the Application Name");
+            }
+            else
+            {
+                if (txtorg.Text == "" || txtorg.Text == " ")
+                {
+                    output = orgcall();
+                    if (output == null)
+                    {
+                        MessageBox.Show("Please make sure URL is proper with a / at last ");
+                    }
+                    else
+                        txtorg.Text = output.ToUpper();                             
+                }
+                if(txtvdc.Text == "" || txtvdc.Text == " ")
+                {
+                    vcd = vcdcall();
+                    if (vcd == null)
+                    {
+                        MessageBox.Show("Please make sure URL is proper with a / at last ");
+                        
+                    }
+                    else
+                        txtvdc.Text = vcd.ToLower();                  
+                }
+                txtdtn.Text = funrem();
+                String s = "--sourceType=\"OVF\" \"" + txtsrc.Text.Trim() + "\" \"vcloud://" + txtui.Text + ":" + txtpwd.Text + "@" + txtdtn.Text + "?vdc=" + txtvdc.Text + "&org=" + txtorg.Text + "&vappTemplate=" + txtapp.Text + "&catalog=" + txtcat.Text + "\"";
+                //ovftool --sourceType="OVF" "C:\Users\schandramoul\Downloads\VM_SOFTWARES\test\test.ovf " "vclou
+                //d://p10v1-vcd.vchs.vmware.com/cloud/org/m211057782-9439/?vdc= m211057782&org= M211057782-9439&vappTemplate=test&catalog=SG_Catalog"
+                txtsynx.Text = s;
+
+                txtres.Text = "please wait";
+                progressBar1.Value = 20;
+                label9.Text = "20%";
+                if (!backgroundWorker1.IsBusy)
+                {
+                    // This method will start the execution asynchronously in the background
+                    backgroundWorker1.RunWorkerAsync();
+                }
+            }
+        }
+        public String orgcall()
+        {
+            try
+            {
+                surl = txtdtn.Text;
+                lurl = surl.Length;
+                if (surl[lurl - 1] == '/')
+                {
+                    for (i = lurl - 2; i >= 0; i--)
+                    {
+                        if (surl[i] == '/')
+                        {
+                            break;
+                        }
+                        sorg = sorg + surl[i].ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please Enter the proper url.Please refer ? button for help");
+                    return null;
+                }
+                    
+                input = sorg;
+                for (k = input.Length - 1; k >= 0; k--)
+                {
+                    output += input[k];
+                }
+                return output;
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show(a.Message);
+                return null;
+            }
+        }
+        public String vcdcall()
+        {
+            try
+            {
+                output = txtorg.Text;
+                if(output==null)
+                {
+                    return null;
+                }
+                for (j = 0; j < output.Length; j++)
+                {
+                    if (output[j] == '-')
+                    {
+                        break;
+                    }
+                    vcd = vcd + output[j];
+                }
+                return vcd;
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show(a.Message);
+                return null;
+            }           
+        }
+        public void funcall()
+        {
+            String p, res,er;
+            p = txtsynx.Text;
+            OvfClass ovf = new OvfClass();
+            res = ovf.compute(p);
+            er = res.Substring(res.Length-4,4);
+            if(er=="erro")
+            {
+                res = res.Remove(res.Length - 4, 4);                
+                MessageBox.Show(res);                                                              
+            }
+            else
+                tex = res;           
+        }
+        public string funrem()
+        {
+            string test = txtdtn.Text;
+            string result = test.Remove(0, 8);
+            txtdtn.Text = null;
+            return result;
+        }
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int sum = 0;
+            funcall();
+            for (int i = 20; i <= 4; i+=20)
+            {                
+                sum = sum + i;
+                backgroundWorker1.ReportProgress(i);
+            }
+            e.Result = sum;
+        }
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value += e.ProgressPercentage;
+            label9.Text = e.ProgressPercentage.ToString() + "%";
+        }
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            txtres.Text = tex;
+            progressBar1.Value = 100;
+            label9.Text = "100%";
+        }       
+    }
+}

@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D131E771-8991-4691-BD0A-3F2B1894DEFE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GUI_OVFTOOL</RootNamespace>
+    <AssemblyName>GUI_OVFTOOL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="dash_board.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dash_board.Designer.cs">
+      <DependentUpon>dash_board.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drag.cs" />
+    <Compile Include="dummy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dummy.Designer.cs">
+      <DependentUpon>dummy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Help_URL_1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help_URL_1.Designer.cs">
+      <DependentUpon>Help_URL_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ISO_UpldVCD_ondem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISO_UpldVCD_ondem.Designer.cs">
+      <DependentUpon>ISO_UpldVCD_ondem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main_Form.Designer.cs">
+      <DependentUpon>Main_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dply_Esxi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dply_Esxi.Designer.cs">
+      <DependentUpon>Dply_Esxi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ISO_UpldVCD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISO_UpldVCD.Designer.cs">
+      <DependentUpon>ISO_UpldVCD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OVF_UpldVCD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OVF_UpldVCD.Designer.cs">
+      <DependentUpon>OVF_UpldVCD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Help_URL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help_URL.Designer.cs">
+      <DependentUpon>Help_URL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EULA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EULA.Designer.cs">
+      <DependentUpon>EULA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OVF_Conv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OVF_Conv.Designer.cs">
+      <DependentUpon>OVF_Conv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mig_Hosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mig_Hosts.Designer.cs">
+      <DependentUpon>Mig_Hosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OVF_UpldVCD_ondem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OVF_UpldVCD_ondem.Designer.cs">
+      <DependentUpon>OVF_UpldVCD_ondem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VM_Dowld.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VM_Dowld.Designer.cs">
+      <DependentUpon>VM_Dowld.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VM_DowlVCD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VM_DowlVCD.Designer.cs">
+      <DependentUpon>VM_DowlVCD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Help.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help.Designer.cs">
+      <DependentUpon>Help.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OvfClass.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="VM_DowlVCD_ondem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VM_DowlVCD_ondem.Designer.cs">
+      <DependentUpon>VM_DowlVCD_ondem.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="dash_board.resx">
+      <DependentUpon>dash_board.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dummy.resx">
+      <DependentUpon>dummy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Help_URL_1.resx">
+      <DependentUpon>Help_URL_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISO_UpldVCD_ondem.resx">
+      <DependentUpon>ISO_UpldVCD_ondem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main_Form.resx">
+      <DependentUpon>Main_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dply_Esxi.resx">
+      <DependentUpon>Dply_Esxi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISO_UpldVCD.resx">
+      <DependentUpon>ISO_UpldVCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OVF_UpldVCD.resx">
+      <DependentUpon>OVF_UpldVCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Help_URL.resx">
+      <DependentUpon>Help_URL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EULA.resx">
+      <DependentUpon>EULA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OVF_Conv.resx">
+      <DependentUpon>OVF_Conv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mig_Hosts.resx">
+      <DependentUpon>Mig_Hosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OVF_UpldVCD_ondem.resx">
+      <DependentUpon>OVF_UpldVCD_ondem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VM_Dowld.resx">
+      <DependentUpon>VM_Dowld.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VM_DowlVCD.resx">
+      <DependentUpon>VM_DowlVCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Help.resx">
+      <DependentUpon>Help.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VM_DowlVCD_ondem.resx">
+      <DependentUpon>VM_DowlVCD_ondem.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\front_page_main1.png" />
+    <None Include="images\template.jpg" />
+    <None Include="images\front_page.png" />
+    <Content Include="img\front_page_main1.png" />
+    <Content Include="img\Help.png" />
+    <Content Include="img\template1.png" />
+    <Content Include="img\vcd_final_help.png" />
+    <Content Include="img\vcd_help.png" />
+    <Content Include="img\vcd_url_org.png" />
+    <Content Include="img\vcd_url_r3_final.png" />
+    <Content Include="img\vcd_url_r4_final.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

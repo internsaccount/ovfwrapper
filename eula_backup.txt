@@ -1,0 +1,31 @@
+public String eula_chk(String l)
+        {
+            try
+            {
+                String eul, output = "";
+                int line_no = 0, line_end = 0, cnt = 0;
+                ProcessStartInfo psii = new ProcessStartInfo(@"C:\Program Files\VMware\VMware OVF Tool\ovftool.exe", l);
+                psii.UseShellExecute = false;
+                psii.RedirectStandardOutput = true;
+                psii.CreateNoWindow = true;
+                var proc = Process.Start(psii);
+                eul = proc.StandardOutput.ReadToEnd();
+                if (eul.Contains("End-user License Agreements:"))
+                {
+                    line_no = eul.IndexOf("Info:    End User License Agreement");
+                    output = eul.Remove(0, line_no);
+                    line_no = output.IndexOf("Download Size:") - 15;
+                    line_end = output.IndexOf("Protocols:") + 25;
+                    cnt = line_end - line_no;
+                    output = output.Remove(line_no, cnt);
+                    return output;
+                }
+                else
+                    return null;
+            }
+            catch (Exception a)
+            {
+                return a.Message;
+            }
+        }
+}
